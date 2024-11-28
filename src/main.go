@@ -1,5 +1,11 @@
 package main
 
 func main() {
-	println("Hello, world!")
+	test := vertice{
+		id:         "1",
+		fcapacidad: 2,
+		factual:    1,
+		next:       []*vertice{},
+	}
+	test.info()
 }
