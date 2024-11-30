@@ -6,5 +6,7 @@ func main() {
 	vert2 := NewVertice("A", []*Vertice{&test})
 
 	ars := NewArista(&vert2, &test, 4, 2)
-	ars.info()
+
+	netw := NewNetwork([]*Vertice{&vert2, &test}, &vert2, &test, []*Arista{&ars})
+	netw.info()
 }

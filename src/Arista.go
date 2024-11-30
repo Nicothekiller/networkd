@@ -1,6 +1,7 @@
 package main
 
 type Arista struct {
+	id        string
 	inicio    *Vertice
 	final     *Vertice
 	capacidad int
@@ -8,7 +9,9 @@ type Arista struct {
 }
 
 func NewArista(inicio, final *Vertice, capacidad, actual int) Arista {
+	id := inicio.id + final.id
 	return Arista{
+		id:        id,
 		inicio:    inicio,
 		final:     final,
 		capacidad: capacidad,
