@@ -5,6 +5,7 @@ type Network struct {
 	inicio        *Vertice
 	final         *Vertice
 	totalAristas  []*Arista
+	paths         [][]*Vertice
 }
 
 func NewNetwork(totalVertices []*Vertice, inicio, final *Vertice, totalAristas []*Arista) Network {
@@ -38,13 +39,24 @@ func (self *Network) Info() {
 	println("\n")
 }
 
-func (self *Network) FindPath(iter *Vertice, path string) {
-	path += iter.id
+func (self *Network) findPath(iter *Vertice, path []*Vertice) {
+	path = append(path, iter)
+
 	if iter.id != self.final.id {
 		for i := 0; i < len(iter.next); i++ {
-			self.FindPath(iter.next[i], path)
+			self.findPath(iter.next[i], path)
 		}
 	} else {
-		println("Found path:", path)
+		print("Found path: ")
+		for i := 0; i < len(path); i++ {
+			print(path[i].id, " ")
+		}
+		print("\n")
+
+		self.paths = append(self.paths, path)
 	}
+}
+
+func (self *Network) GenPath() {
+	self.findPath(self.inicio, []*Vertice{})
 }
