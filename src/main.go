@@ -1,12 +1,13 @@
 package main
 
 func main() {
-	test := NewVertice("B", nil)
+	c := NewVertice("C", nil)
+	b := NewVertice("B", []*Vertice{&c})
+	a := NewVertice("A", []*Vertice{&b, &c})
 
-	vert2 := NewVertice("A", []*Vertice{&test})
+	netw := NewNetwork([]*Vertice{&a, &b}, &a, &c, []*Arista{})
+	netw.Info()
 
-	ars := NewArista(&vert2, &test, 4, 2)
-
-	netw := NewNetwork([]*Vertice{&vert2, &test}, &vert2, &test, []*Arista{&ars})
-	netw.info()
+	println("-- Paths --")
+	netw.FindPath(netw.inicio, "")
 }

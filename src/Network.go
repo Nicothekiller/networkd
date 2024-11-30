@@ -16,7 +16,7 @@ func NewNetwork(totalVertices []*Vertice, inicio, final *Vertice, totalAristas [
 	}
 }
 
-func (self *Network) info() {
+func (self *Network) Info() {
 	println("-- Network info --")
 
 	println("-- Inicio --")
@@ -35,5 +35,16 @@ func (self *Network) info() {
 	for i := 0; i < len(self.totalAristas); i++ {
 		print(self.totalAristas[i].id, " ")
 	}
-	println()
+	println("\n")
+}
+
+func (self *Network) FindPath(iter *Vertice, path string) {
+	path += iter.id
+	if iter.id != self.final.id {
+		for i := 0; i < len(iter.next); i++ {
+			self.FindPath(iter.next[i], path)
+		}
+	} else {
+		println("Found path:", path)
+	}
 }
