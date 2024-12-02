@@ -1,5 +1,7 @@
 package main
 
+// Network struct. Based on a directed graph, has all vertices, start, end, all edges and paths.
+// All paths should be set automatically by findPath / GenPath
 type Network struct {
 	totalVertices []*Vertice
 	inicio        *Vertice
@@ -8,6 +10,7 @@ type Network struct {
 	paths         [][]*Vertice
 }
 
+// Constructor for Network struct.
 func NewNetwork(totalVertices []*Vertice, inicio, final *Vertice, totalAristas []*Arista) Network {
 	return Network{
 		totalVertices: totalVertices,
@@ -17,6 +20,7 @@ func NewNetwork(totalVertices []*Vertice, inicio, final *Vertice, totalAristas [
 	}
 }
 
+// Info method for network func. Displays info.
 func (self *Network) Info() {
 	println("-- Network info --")
 
@@ -39,6 +43,7 @@ func (self *Network) Info() {
 	println("\n")
 }
 
+// Method for finding a path from a vertice to the end of the network. Needs start and where to save pointers to vertices.
 func (self *Network) findPath(iter *Vertice, path []*Vertice) {
 	path = append(path, iter)
 
@@ -57,6 +62,7 @@ func (self *Network) findPath(iter *Vertice, path []*Vertice) {
 	}
 }
 
+// Wrapper method to find all paths from start to end on the network. Uses findPath internally.
 func (self *Network) GenPath() {
 	self.findPath(self.inicio, []*Vertice{})
 }
