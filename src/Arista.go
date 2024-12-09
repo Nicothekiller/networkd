@@ -11,20 +11,20 @@ type Arista struct {
 }
 
 // Constructor for arista. Doesnt have id parameter, it should be set automatically.
-func NewArista(inicio, final *Vertice, capacidad, actual int) Arista {
+func NewArista(inicio, final *Vertice, capacidad int) Arista {
 	id := inicio.id + final.id
 	return Arista{
 		id:        id,
 		inicio:    inicio,
 		final:     final,
 		capacidad: capacidad,
-		actual:    actual,
+		actual:    0,
 	}
 }
 
 // Info method for arista
 func (self *Arista) info() {
-	println("Info Arista")
+	println("-- Info Arista --")
 
 	println("Inicio:")
 	self.inicio.info()

@@ -75,6 +75,7 @@ func (self *Network) GenPath() {
 	self.findPathAr()
 }
 
+// func to transform the paths from vertices to aristas, before using it needs to call fidpath or it wont work due to paths being empty
 func (self *Network) findPathAr() {
 	for i := 0; i < len(self.paths); i++ {
 		pathstr := ""
@@ -103,6 +104,7 @@ func (self *Network) findPathAr() {
 	}
 }
 
+// func to find an arista based on the id of the vertices, can return an error if it doesnt find anything
 func (self *Network) findAr(start, end string) (*Arista, error) {
 	expectedId := start + end
 
@@ -113,4 +115,36 @@ func (self *Network) findAr(start, end string) (*Arista, error) {
 	}
 
 	return nil, errors.New("Arista no fue encontrada, asegurarse de haber ingresado los datos correctamente.")
+}
+
+// Func to maximize flow in the network
+func (self *Network) MaximizeFlow() {
+	for iter := 0; iter < len(self.pathAr); iter++ {
+		self.maxPathFlow(iter)
+	}
+}
+
+// Func to maximize flow in an especific path
+func (self *Network) maxPathFlow(index int) {
+	min := self.pathAr[index][0].capacidad - self.pathAr[index][0].actual
+
+	for iter := 1; iter < len(self.pathAr[index]); iter++ {
+		if (self.pathAr[index][iter].capacidad - self.pathAr[index][iter].actual) < min {
+			min = self.pathAr[index][iter].capacidad - self.pathAr[index][iter].actual
+		}
+	}
+
+	for iter := 0; iter < len(self.pathAr[index]); iter++ {
+		self.pathAr[index][iter].actual += min
+	}
+}
+
+func (self *Network) PathInfo() {
+	for iter := 0; iter < len(self.pathAr); iter++ {
+		println("-- Path", iter, "--")
+		for j := 0; j < len(self.pathAr[iter]); j++ {
+			self.pathAr[iter][j].info()
+		}
+		print("\n")
+	}
 }
