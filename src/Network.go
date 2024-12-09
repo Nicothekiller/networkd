@@ -124,7 +124,7 @@ func (self *Network) MaximizeFlow() {
 	}
 }
 
-// Func to maximize flow in an especific path
+// Func to maximize flow in an especific path, uses the paths generated from GenPath(), takes index of the pathAr as argument
 func (self *Network) maxPathFlow(index int) {
 	min := self.pathAr[index][0].capacidad - self.pathAr[index][0].actual
 
@@ -139,6 +139,7 @@ func (self *Network) maxPathFlow(index int) {
 	}
 }
 
+// Func to print the info of all paths in the network, paths must exist so it needs to be used after GenPath()
 func (self *Network) PathInfo() {
 	for iter := 0; iter < len(self.pathAr); iter++ {
 		println("-- Path", iter, "--")
